@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Student Identification Track</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <div id="welcomePage" class="welcome-screen">
+    <h1>Welcome to Student Identification Track</h1>
+    <div class="welcome-buttons">
+      <button onclick="loadFeature('attendance')">Take Attendance</button>
+      <button onclick="loadFeature('reports')">View Reports</button>
+      <button onclick="loadFeature('batch')">Generate Batches</button>
+      <button onclick="loadFeature('upload')">Upload New Data</button>
+    </div>
+  </div>
+
+  <div id="dashboard" class="dashboard" style="display: none;">
+    <div class="sidebar">
+      <h2>Dashboard</h2>
+      <ul>
+        <li class="tab-button" data-target="attendance">Take Attendance</li>
+        <li class="tab-button" data-target="reports">View Reports</li>
+        <li class="tab-button" data-target="batch">Generate Batches</li>
+        <li class="tab-button" data-target="upload">Upload New Data</li>
+        <li class="tab-button" data-target="add_student">Add New Student</li>
+        <li class="tab-button" data-target="mobile">Mobile Attendance</li>
+        <li><a href="{{ url_for('logout') }}" style="color: red;">Logout</a></li>
+
+      </ul>
+    </div>
+
+    <div class="header">Student Identification Track</div>
+
+    <div class="main-content">
+      <!-- Attendance -->
+      <div id="attendance" class="tab-content">
+        <div class="card" style="display: flex; gap: 20px;">
+          <div style="flex: 2;">
+            <h2>Live Webcam</h2>
+            <img id="video" src="{{ url_for('video_feed') }}" style="width: 100%; border-radius: 10px;">
+          </div>
+          <div style="flex: 1;">
+            <h2>Detected Student</h2>
+            <p><strong>Name:</strong> <span id="name"></span></p>
+            <p><strong>ID:</strong> <span id="id"></span></p>
+            <p><strong>Branch:</strong> <span id="branch"></span></p>
+            <button onclick="markPresent()">Mark Present</button>
+            <p id="presentStatus"></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Reports -->
+      <div id="reports" class="tab-content">
+        <div class="card">
+          <h2>Generate Attendance Report</h2>
+          <label>Start:</label><input type="date" id="start">
+          <label>End:</label><input type="date" id="end">
+          <button onclick="getReportTable()">View Report</button>
+          <button onclick="downloadReport()">Download CSV</button>
+          <button onclick="getAllReports()">View All Reports</button>
+          <br>
+          <input type="text" id="searchInput" placeholder="Search by Name or ID" onkeyup="filterReport()">
+          <br><br>
+          <input type="text" id="studentIDInput" placeholder="Enter Student ID">
+          <button onclick="calculatePercentage()">Calculate Attendance %</button>
+          <p id="percentResult"></p>
+          <div id="reportResult" style="margin-top: 20px;"></div>
+        </div>
+      </div>
+
+      <!-- Batch -->
+      <div id="batch" class="tab-content">
+        <div class="card">
+          <h2>Generate Random Batches</h2>
+          <select id="batchSize">
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="10">10</option>
+          </select>
+          <button onclick="generateBatch()">Generate</button>
+          <div id="batchResult" style="margin-top: 20px;"></div>
+        </div>
+      </div>
+
+      <!-- Upload -->
+      <div id="upload" class="tab-content">
+        <div class="card">
+          <h2>Upload New Batch Data</h2>
+          <input type="file" id="csvFile" accept=".csv">
+          <label>← Upload CSV for Student Details</label><br>
+          <input type="file" id="zipFile" accept=".zip">
+          <label>← Upload ZIP for Face Images</label><br>
+          <button onclick="uploadNewData()">Upload</button>
+          <p id="uploadStatus"></p>
+        </div>
+      </div>
+
+      <!-- Add Student -->
+      <div id="add_student" class="tab-content">
+        <div class="card">
+          <h2>Add New Student</h2>
+          <form method="POST" enctype="multipart/form-data" action="{{ url_for('add_student_tab') }}">
+            <label>Name:</label>
+            <input type="text" name="name" required>
+            <label>Student ID:</label>
+            <input type="text" name="student_id" required>
+            <label>Branch:</label>
+            <input type="text" name="branch" required>
+            <label>Upload Image:</label>
+            <input type="file" name="image" accept="image/*" required>
+            <input type="submit" value="Add Student">
+          </form>
+        </div>
+      </div>
+      <!-- Mobile Upload Tab -->
+      <div id="mobile" class="tab-content">
+        <div class="card">
+         <h2>Mobile Face Upload for Attendance</h2>
+        <input type="file" accept="image/*" id="mobileImage" capture="environment">
+        <button onclick="uploadMobileImage()">Upload and Recognize</button>
+        <p id="mobileResult"></p>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+
+  <!-- External JS -->
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

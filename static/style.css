@@ -1,0 +1,139 @@
+body, html {
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+.welcome-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #f4f4f4;
+}
+
+.welcome-screen h1 {
+  font-size: 32px;
+  margin-bottom: 30px;
+}
+
+.welcome-buttons button {
+  margin: 10px;
+  padding: 15px 30px;
+  font-size: 18px;
+  border: none;
+  border-radius: 5px;
+  background-color: #333;
+  color: white;
+  cursor: pointer;
+}
+
+.welcome-buttons button:hover {
+  background-color: #555;
+}
+
+.dashboard {
+  display: flex;
+}
+
+.sidebar {
+  width: 220px;
+  background-color: #333;
+  color: white;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding-top: 20px;
+}
+
+.sidebar h2 {
+  text-align: center;
+  margin-top: 0;
+}
+
+.sidebar ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.sidebar ul li {
+  padding: 15px 20px;
+  cursor: pointer;
+  border-bottom: 1px solid #444;
+}
+
+.sidebar ul li:hover,
+.sidebar ul li.active {
+  background-color: #444;
+}
+
+.main-content {
+  margin-left: 220px;
+  padding: 20px;
+  margin-top: 70px;
+  flex-grow: 1;
+}
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 220px;
+  right: 0;
+  background-color: #222;
+  color: white;
+  padding: 15px;
+  font-size: 24px;
+  text-align: center;
+}
+
+.tab-content {
+  display: none;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+.card {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 8px;
+  border: 1px solid #ccc;
+  text-align: center;
+}
+
+input, button, select {
+  padding: 8px;
+  margin: 5px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+#presentStatus,
+#uploadStatus,
+#percentResult {
+  font-weight: bold;
+  margin-top: 10px;
+  color: green;
+}
+#mobileImage {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+#mobileResult {
+  font-weight: bold;
+  color: green;
+  margin-top: 10px;
+}
